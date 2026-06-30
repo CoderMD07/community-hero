@@ -4,9 +4,9 @@
 
 **Community Hero** is an AI-powered civic issue reporting and resolution platform that enables citizens of Surat (and any city) to identify, report, verify, track, and resolve local infrastructure problems — through community collaboration, real-time data, and intelligent automation.
 
-🔗 **Live App:** [https://community-hero-app.web.app](https://community-hero-app.web.app)  
+🔗 **Live App:** [https://community-hero-a2ed3.web.app](https://community-hero-a2ed3.web.app)
 📁 **GitHub:** [https://github.com/CoderMD07/community-hero](https://github.com/CoderMD07/community-hero)  
-📄 **Project Doc:** [Google Doc Link]
+📄 **Project Doc:** [https://docs.google.com/document/d/1nc3neeRdLAUdKcFaWVkHEIVzM236qB9SIFOXbqOnLHI/edit?usp=sharing](https://docs.google.com/document/d/1nc3neeRdLAUdKcFaWVkHEIVzM236qB9SIFOXbqOnLHI/edit?usp=sharing)
 
 ---
 
