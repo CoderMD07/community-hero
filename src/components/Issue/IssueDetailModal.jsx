@@ -9,25 +9,28 @@ const SEVERITY_COLORS = { 1: '#1D9E75', 2: '#378ADD', 3: '#EF9F27', 4: '#E24B4A'
 export default function IssueDetailModal({ issue, onClose }) {
   const { user } = useAuth();
   const [upvoting, setUpvoting] = useState(false);
-  const [upvoteError, setUpvoteError] = useState('');
+const [upvoteError, setUpvoteError] = useState('');
+const [hasVotedLocal, setHasVotedLocal] = useState(false);
 
   if (!issue) return null;
 
-  const hasVoted = user && (issue.voterIds || []).includes(user.uid);
+  const hasVoted = hasVotedLocal || (user && (issue.voterIds || []).includes(user.uid));
   const isOwn = user && issue.reportedBy === user.uid;
 
-  const handleUpvote = async () => {
-    if (!user) return;
-    setUpvoting(true);
-    setUpvoteError('');
-    try {
-      await upvoteIssue(issue.id, user.uid, issue.votes, issue.voterIds);
-    } catch (e) {
-      setUpvoteError(e.message);
-    } finally {
-      setUpvoting(false);
-    }
-  };
+ const handleUpvote = async () => {
+  if (!user || hasVoted || upvoting) return;
+  setHasVotedLocal(true); // disable immediately, don't wait for Firestore
+  setUpvoting(true);
+  setUpvoteError('');
+  try {
+    await upvoteIssue(issue.id, user.uid, issue.votes, issue.voterIds);
+  } catch (e) {
+    setHasVotedLocal(false); // revert local state if Firestore write failed
+    setUpvoteError(e.message);
+  } finally {
+    setUpvoting(false);
+  }
+};
 
   const formatDate = (date) => {
     if (!date) return '—';

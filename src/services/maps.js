@@ -54,20 +54,31 @@ export async function reverseGeocode(lat, lng) {
   try {
     const res = await fetch(url);
     const data = await res.json();
+
+    if (data.status !== 'OK') {
+      console.warn('Geocoding API returned status:', data.status, data.error_message || '');
+      return null; // return null so caller knows it failed
+    }
+
     if (data.results && data.results[0]) {
       return data.results[0].formatted_address;
     }
-    return `${lat.toFixed(4)}, ${lng.toFixed(4)}`;
-  } catch {
-    return `${lat.toFixed(4)}, ${lng.toFixed(4)}`;
+
+    return null;
+  } catch (e) {
+    console.error('Geocoding fetch error:', e);
+    return null;
   }
 }
 
-// Tries to extract a neighbourhood name from a formatted address
-// e.g. "Adajan Rd, Adajan, Surat, Gujarat 395009, India" → "Adajan"
+// Extracts a ward/neighbourhood name from a full formatted address
+// "Adajan Patiya, Adajan, Surat, Gujarat 395009, India" → "Adajan"
 export function extractWard(address) {
   if (!address) return 'Surat';
+  // If it looks like coordinates (contains a dot and comma with numbers), return default
+  if (/^-?\d+\.\d+,\s*-?\d+\.\d+$/.test(address.trim())) return 'Surat';
   const parts = address.split(',');
-  // Usually the 2nd or 3rd part is the neighbourhood
-  return parts[1]?.trim() || parts[0]?.trim() || 'Surat';
+  // Second part is usually the neighbourhood/ward in Indian addresses
+  const ward = parts[1]?.trim() || parts[0]?.trim() || 'Surat';
+  return ward;
 }

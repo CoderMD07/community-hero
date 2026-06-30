@@ -61,13 +61,19 @@ export default function ReportForm({ onSuccess }) {
     setError('');
 
     navigator.geolocation.getCurrentPosition(
-      async (pos) => {
-        const { latitude, longitude } = pos.coords;
-        setLocation({ lat: latitude, lng: longitude });
-        const addr = await reverseGeocode(latitude, longitude);
-        setAddress(addr);
-        setGettingLocation(false);
-      },
+  async (pos) => {
+    const { latitude, longitude } = pos.coords;
+    setLocation({ lat: latitude, lng: longitude });
+    const addr = await reverseGeocode(latitude, longitude);
+    if (addr) {
+      setAddress(addr);
+    } else {
+      // Geocoding failed — set a meaningful fallback instead of coordinates
+      setAddress('Surat, Gujarat, India');
+      console.warn('Geocoding failed, using fallback address');
+    }
+    setGettingLocation(false);
+  },
       (err) => {
         console.warn('Geolocation denied:', err.message);
         // Fallback to Surat centre — the demo still works
