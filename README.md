@@ -1,6 +1,6 @@
 # 🗺️ Community Hero — Hyperlocal Problem Solver
 
-> **Vibe2Ship Hackathon 2025** · Problem Statement: Community Hero - Hyperlocal Problem Solver
+> **Vibe2Ship Hackathon 2026** · Problem Statement: Community Hero - Hyperlocal Problem Solver
 
 **Community Hero** is an AI-powered civic issue reporting and resolution platform that enables citizens of Surat (and any city) to identify, report, verify, track, and resolve local infrastructure problems — through community collaboration, real-time data, and intelligent automation.
 
@@ -315,7 +315,7 @@ Built with AI assistance as part of Vibe2Ship Hackathon where AI tool usage is p
 ## 👤 Author
 
 **CoderMD07**  
-Vibe2Ship Hackathon 2025  
+Vibe2Ship Hackathon 2026  
 Built in Surat, Gujarat, India 🇮🇳
 
 ---
